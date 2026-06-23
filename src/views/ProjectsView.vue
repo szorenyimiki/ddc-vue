@@ -6,8 +6,8 @@ const { projects, removeProject } = useProjects()
 </script>
 
 <template>
-  <div>
-    <h1>Projektek</h1>
+  <div class="container">
+    <h1 class="mb-3">Projektek</h1>
 
     <ProjectList
       :projects="projects"

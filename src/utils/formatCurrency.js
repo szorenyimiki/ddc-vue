@@ -1,5 +1,5 @@
 export function formatCurrency(price) {
-  if (price == null || isNaN(price)) return ''
-
-  return Number(price).toLocaleString('hu-HU') + ' Ft'
+  return price == null || isNaN(price)
+    ? ''
+    : Number(price).toLocaleString('hu-HU') + ' Ft' 
 }

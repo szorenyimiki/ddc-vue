@@ -16,7 +16,7 @@ import { ref } from 'vue'
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/projects">Projektek Listája</a></li>
-              <li><a class="dropdown-item" href="/projects/create">Új Projekt Hozzáadása</a></li>
+              <li><a class="dropdown-item" href="/projects/new">Új Projekt Hozzáadása</a></li>
             </ul>
           </li>
         </ul>

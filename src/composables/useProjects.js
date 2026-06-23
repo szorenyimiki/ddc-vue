@@ -1,31 +1,46 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useProjectStorage } from '@/composables/useProjectStorage'
+import { nextProjectId } from '@/utils/nextProjectId'
+
+const { load, save, clear } = useProjectStorage()
 
 export function useProjects() {
-  const projects = ref([{
-    id: 1,
-    name: 'project 1',
-    budget: 10000,
-    startDate: new Date(),
-    description: 'asljdnasjhdj haksjdh kjahsdkj haskjdh kdkahkjshd jkasljdnasjhdj haksjdh kjahsdkj haskjdh kdkahkjshd jkasljdnasjhdj haksjdh kjahsdkj haskjdh kdkahkjshd jkasljdnasjhdj haksjdh kjahsdkj haskjdh kdkahkjshd jk',
-  }, {
-    id: 2,
-    name: 'project 2',
-    budget: 10000,
-    startDate: new Date(),
-  }])
+  const projects = ref(load())
 
   function addProject(project) {
-    console.log(project)
+    project.id = nextProjectId(projects.value) // TODO
     projects.value.push(project)
+    
+    save(projects.value)
+  }
+
+  function updateProject(updatedProject) {
+    projects.value = projects.value.map(p =>
+      p.id === updatedProject.id ? { ...updatedProject } : p
+    )
+
+    console.log(projects.value)
+
+    save(projects.value)
   }
 
   function removeProject(id) {
+    if (!id) return;
+
     projects.value = projects.value.filter(p => p.id !== id)
+
+    save(projects.value)
+  }
+
+  function getProject(id) {
+    return computed(() => projects.value.find(p => p.id == id))
   }
 
   return {
     projects,
     addProject,
+    updateProject,
     removeProject,
+    getProject,
   }
 }

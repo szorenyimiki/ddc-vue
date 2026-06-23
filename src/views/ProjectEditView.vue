@@ -1,12 +1,13 @@
 <script setup>
   import ProjectForm from '@/components/project/ProjectForm.vue'
   import { useProjects } from '@/composables/useProjects'
-  import { useValidation } from '@/composables/useValidation'
+  import { useRoute } from 'vue-router'
   import { ref, watch } from 'vue'
   import router from '@/router'
 
-  const { addProject } = useProjects()
-  const { errors, validateProject } = useValidation()
+  const route = useRoute()
+  const { getProject, updateProject } = useProjects()
+  const project = getProject(route.params.id)
 
   const form = ref({
     name: '',
@@ -15,13 +16,23 @@
     budget: 0,
   })
 
+  watch(
+    project,
+    (p) => {
+      if (p) {
+        form.value = { ...p }
+      }
+    },
+    { immediate: true }
+  )
+
   function handleSubmit() {
     if (!validateProject(form.value)) {
       alert(JSON.stringify(errors.value));
       return
     }
 
-    addProject(form.value)
+    updateProject(form.value)
 
     router.back()
   }
@@ -29,7 +40,7 @@
 
 <template>
   <div class="container">
-    <h1 class="mb-3">Projekt hozzáadása</h1>
+    <h1 class="mb-3">Projekt módosítása</h1>
 
     <ProjectForm
       v-model="form" 

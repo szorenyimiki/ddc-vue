@@ -1,3 +1,5 @@
 export function formatDate(date) {
-  return new Date(date).toLocaleDateString()
+  return date 
+    ? new Date(date).toLocaleDateString() 
+    : null
 }
