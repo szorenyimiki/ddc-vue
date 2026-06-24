@@ -44,7 +44,16 @@
 </script>
 
 <template>
-  <FormLayout title="Projekt módosítása" back-to="/projects">
-    <ProjectForm v-model="form" @submit="handleSubmit" />
-  </FormLayout>
+  <div v-if="form.name">
+    <FormLayout title="Projekt módosítása" back-to="/projects">
+      <ProjectForm v-model="form" @submit="handleSubmit" />
+    </FormLayout>
+  </div>
+  <div v-else>
+    <h1>Projekt nem található</h1>
+
+    <router-link to="/projects">
+      Vissza a listához
+    </router-link>
+  </div>
 </template>
