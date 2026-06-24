@@ -20,7 +20,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="modalStore.close(false)">Mégse</button>
-            <button type="button" class="btn btn-primary" @click="modalStore.close(true)">Ok</button>
+            <button type="button" class="btn btn-danger" @click="modalStore.close(true)">Törlés</button>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ export function useValidation() {
       errors.value.budget = 'Költségvetés megadása kötelező'
     }
     else if (project.budget < 0) {
-      errors.value.budget = 'A költségvetésnek pozitív számnak kell lennie'
+      errors.value.budget = 'A költségvetésnek pozitív egész számnak kell lennie'
     }
 
     return Object.keys(errors.value).length === 0
