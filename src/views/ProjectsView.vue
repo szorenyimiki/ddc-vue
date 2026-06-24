@@ -1,8 +1,21 @@
 <script setup>
-import ProjectList from '@/components/project/ProjectList.vue'
-import { useProjects } from '@/composables/useProjects'
+  import ProjectList from '@/components/project/ProjectList.vue'
+  import { useProjects } from '@/composables/useProjects'
+  import { useModalStore } from '@/stores/modal'
 
-const { projects, removeProject } = useProjects()
+  const { projects, removeProject } = useProjects()
+  const modal = useModalStore()
+
+  async function handleRemoveProject(id) {
+    const ok = await modal.open(
+      'Projekt törlése',
+      'Biztos törölni szeretnéd?'
+    )
+
+    if (ok) {
+      removeProject(id)
+    }
+  }
 </script>
 
 <template>
@@ -11,7 +24,7 @@ const { projects, removeProject } = useProjects()
 
     <ProjectList
       :projects="projects"
-      @removeProject="removeProject"
+      @removeProject="handleRemoveProject"
     />
   </div>
 </template>

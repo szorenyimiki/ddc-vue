@@ -9,7 +9,7 @@ export function useValidation() {
     if (!project.name) {
       errors.value.name = 'Név megadása kötelező'
     }
-    else if (isNaN(parseFloat(project.budget))) {
+    if (isNaN(parseFloat(project.budget))) {
       errors.value.budget = 'Költségvetés megadása kötelező'
     }
     else if (project.budget < 0) {

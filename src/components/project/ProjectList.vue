@@ -2,6 +2,8 @@
   import { formatDate } from '@/utils/formatDate'
   import { formatCurrency } from '@/utils/formatCurrency'
 
+  const emit = defineEmits(['delete'])
+
   defineProps({
     projects: {
       type: Array,
@@ -29,7 +31,7 @@
         <td>{{ formatDate(project.startDate) }}</td>
         <td class="text-truncate" style="max-width: 200px;">{{ project.description }}</td>
         <td>
-          <a :href="'/projects/' + project.id + '/edit'" class="btn btn-sm btn-secondary m-2">Szerkesztés</a>
+          <router-link :to="'/projects/' + project.id + '/edit'" class="btn btn-sm btn-secondary m-2">Szerkesztés</router-link>
           <button type="button" class="btn btn-sm btn-danger" @click="$emit('removeProject', project.id)">Törlés</button>
         </td>
       </tr>

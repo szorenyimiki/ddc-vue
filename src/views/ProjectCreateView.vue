@@ -2,9 +2,11 @@
   import ProjectForm from '@/components/project/ProjectForm.vue'
   import { useProjects } from '@/composables/useProjects'
   import { useValidation } from '@/composables/useValidation'
-  import { ref, watch } from 'vue'
+  import { ref } from 'vue'
   import router from '@/router'
+  import { useToastStore } from '@/stores/toast'
 
+  const toast = useToastStore()
   const { addProject } = useProjects()
   const { errors, validateProject } = useValidation()
 
@@ -17,11 +19,16 @@
 
   function handleSubmit() {
     if (!validateProject(form.value)) {
-      alert(JSON.stringify(errors.value));
+      for (const field in errors.value) {
+        toast.error(errors.value[field])
+      }
+
       return
     }
 
     addProject(form.value)
+
+    toast.success('Projekt sikeresen létrehozva')
 
     router.back()
   }
