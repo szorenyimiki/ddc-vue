@@ -19,8 +19,6 @@ export function useProjects() {
       p.id === updatedProject.id ? { ...updatedProject } : p
     )
 
-    console.log(projects.value)
-
     save(projects.value)
   }
 
