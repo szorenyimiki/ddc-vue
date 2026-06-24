@@ -28,13 +28,22 @@
 </script>
 
 <template>
-  <div class="container">
-    <h1 class="mb-3">Projektek</h1>
+  <div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="fw-bold mb-0">Projektek</h4>
+      <router-link to="/projects/new" class="btn btn-primary btn-sm">
+        + Új projekt
+      </router-link>
+    </div>
 
-    <Filter v-model="filter" />
-    <ProjectList
-      :projects="filteredProjects"
-      @removeProject="handleRemoveProject"
-    />
+    <div class="card shadow-sm">
+      <div class="card-body border-bottom py-3">
+        <Filter v-model="filter" />
+      </div>
+      <ProjectList
+        :projects="filteredProjects"
+        @removeProject="handleRemoveProject"
+      />
+    </div>
   </div>
 </template>

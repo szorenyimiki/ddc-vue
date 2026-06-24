@@ -1,12 +1,13 @@
 <script setup>
+  import FormLayout from '@/components/layout/FormLayout.vue'
   import ProjectForm from '@/components/project/ProjectForm.vue'
   import { useProjects } from '@/composables/useProjects'
   import { useRoute } from 'vue-router'
   import { useValidation } from '@/composables/useValidation'
-  import { ref, watch, inject } from 'vue'
+  import { ref, watch } from 'vue'
   import router from '@/router'
   import { useToastStore } from '@/stores/toast'
-  
+
   const route = useRoute()
   const { getProject, updateProject } = useProjects()
   const { errors, validateProject } = useValidation()
@@ -23,9 +24,7 @@
   watch(
     project,
     (p) => {
-      if (p) {
-        form.value = { ...p }
-      }
+      if (p) form.value = { ...p }
     },
     { immediate: true }
   )
@@ -35,25 +34,17 @@
       for (const field in errors.value) {
         toast.error(errors.value[field])
       }
-      
       return
     }
 
     updateProject(form.value)
-
-    toast.success('Project sikeresen módosítva')
-
+    toast.success('Projekt sikeresen módosítva')
     router.back()
   }
 </script>
 
 <template>
-  <div class="container">
-    <h1 class="mb-3">Projekt módosítása</h1>
-
-    <ProjectForm
-      v-model="form" 
-      @submit="handleSubmit"
-    />
-  </div>
+  <FormLayout title="Projekt módosítása" back-to="/projects">
+    <ProjectForm v-model="form" @submit="handleSubmit" />
+  </FormLayout>
 </template>

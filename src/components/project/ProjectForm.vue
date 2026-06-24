@@ -1,4 +1,10 @@
 <script setup>
+  import TextInput from '@/components/common/inputs/TextInput.vue'
+  import NumberInput from '@/components/common/inputs/NumberInput.vue'
+  import DateInput from '@/components/common/inputs/DateInput.vue'
+  import Textarea from '@/components/common/inputs/Textarea.vue'
+  import Button from '@/components/common/inputs/Button.vue'
+
   const emit = defineEmits(['submit'])
   const form = defineModel()
 
@@ -10,23 +16,19 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <div class="mb-3">
-      <label for="name" class="form-label">Projekt neve</label>
-      <input class="form-control" v-model="form.name" id="name">
+      <TextInput id="name" label="Projekt neve" v-model="form.name" />
     </div>
     <div class="mb-3">
-      <label for="budget" class="form-label">Költségvetés</label>
-      <input type="number" class="form-control" v-model="form.budget" id="budget">
+      <NumberInput id="budget" label="Költségvetés" v-model="form.budget" />
     </div>
     <div class="mb-3">
-      <label for="start" class="form-label">Kezdési dátum</label>
-      <input type="date" class="form-control" v-model="form.startDate" id="start">
+      <DateInput id="start" label="Kezdési dátum" v-model="form.startDate" />
     </div>
     <div class="mb-3">
-      <label for="description" class="form-label">Leírás</label>
-      <textarea rows="10" class="form-control" v-model="form.description" id="description"></textarea>
+      <Textarea rows="10" id="description" label="Leírás" v-model="form.description" />
     </div>
     <div class="mb-3">
-      <button type="submit" class="btn btn-primary">Mentés</button>
+      <Button label="Mentés" type="submit" />
     </div>
   </form>
 </template>

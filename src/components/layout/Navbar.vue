@@ -1,18 +1,32 @@
 <script setup>
-  import { ref } from 'vue'
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <router-link class="navbar-brand fw-semibold" to="/projects">
+        DDC <span class="text-primary">Projektek</span>
+      </router-link>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <router-link class="nav-link" to="/projects">Projektek Listája</router-link>
-          <router-link class="nav-link" to="/projects/new">Új Projekt Hozzáadása</router-link>
-        </div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <router-link class="nav-link" to="/projects">Projektek</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/projects/new">Új projekt</router-link>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>

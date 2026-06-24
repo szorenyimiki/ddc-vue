@@ -1,4 +1,5 @@
 <script setup>
+  import FormLayout from '@/components/layout/FormLayout.vue'
   import ProjectForm from '@/components/project/ProjectForm.vue'
   import { useProjects } from '@/composables/useProjects'
   import { useValidation } from '@/composables/useValidation'
@@ -22,25 +23,17 @@
       for (const field in errors.value) {
         toast.error(errors.value[field])
       }
-
       return
     }
 
     addProject(form.value)
-
     toast.success('Projekt sikeresen létrehozva')
-
     router.back()
   }
 </script>
 
 <template>
-  <div class="container">
-    <h1 class="mb-3">Projekt hozzáadása</h1>
-
-    <ProjectForm
-      v-model="form" 
-      @submit="handleSubmit"
-    />
-  </div>
+  <FormLayout title="Projekt hozzáadása" back-to="/projects">
+    <ProjectForm v-model="form" @submit="handleSubmit" />
+  </FormLayout>
 </template>
