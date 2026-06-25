@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { isValidBudget } from '@/utils/isValidBudget'
 
 export function useValidation() {
   const errors = ref({})
@@ -12,7 +13,7 @@ export function useValidation() {
     if (isNaN(parseFloat(project.budget))) {
       errors.value.budget = 'Költségvetés megadása kötelező'
     }
-    else if (project.budget < 0) {
+    else if (!isValidBudget(project.budget)) {
       errors.value.budget = 'A költségvetésnek pozitív egész számnak kell lennie'
     }
 

@@ -3,11 +3,12 @@
   import Filter from '@/components/common/Filter.vue'
   import { useProjects } from '@/composables/useProjects'
   import { useModalStore } from '@/stores/modal'
-  import { ref, computed } from 'vue'
+  import { ref } from 'vue'
+  import { useFilters } from '@/composables/useFilters'
 
   const { projects, removeProject } = useProjects()
+  const { filter, filteredProjects } = useFilters(projects)
   const modal = useModalStore()
-  const filter = ref('')
 
   async function handleRemoveProject(id) {
     const ok = await modal.open(
@@ -20,17 +21,13 @@
     }
   }
 
-  const filteredProjects = computed(() =>
-    projects.value.filter(p =>
-      p.name.toLowerCase().includes(filter.value.toLowerCase())
-    )
-  )
+
 </script>
 
 <template>
   <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h4 class="fw-bold mb-0">Projektek</h4>
+      <h4 class="fw-bold mb-0">Projektek Listája</h4>
       <router-link to="/projects/new" class="btn btn-primary btn-sm">
         + Új projekt
       </router-link>

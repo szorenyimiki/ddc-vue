@@ -13,6 +13,7 @@ Egyszerű Vue 3 alapú projektkezelő SPA, amely lehetővé teszi projektek lét
 | Pinia 3 | Globális állapotkezelés (toast, confirm modal) |
 | Bootstrap 5 | CSS keretrendszer |
 | Vite 8 | Fejlesztői szerver és build tool |
+| Vitest | Egységtesztek futtatása |
 | Docker / nginx | Konténerizált fejlesztés és produkciós kiszolgálás |
 
 ---
@@ -73,7 +74,11 @@ ddc-vue/
 │   ├── composables/               # Újrafelhasználható logika
 │   │   ├── useProjects.js         # CRUD műveletek a projekteken
 │   │   ├── useProjectStorage.js   # localStorage olvasás/írás
-│   │   └── useValidation.js       # Projekt form validáció
+│   │   ├── useValidation.js       # Projekt form validáció
+│   │   ├── useFilters.js          # Lista szűrés logikája
+│   │   └── __tests__/
+│   │       ├── useProjects.test.js
+│   │       └── useValidation.test.js
 │   │
 │   ├── views/                     # Oldalszintű komponensek (router-hez)
 │   │   ├── ProjectsView.vue       # Projektek lista + szűrés + törlés
@@ -81,19 +86,23 @@ ddc-vue/
 │   │   ├── ProjectEditView.vue    # Meglévő projekt szerkesztése
 │   │   └── NotFoundView.vue       # 404-es oldal
 │   │
+│   ├── models/
+│   │   └── project.js             # Project factory függvény (createProject)
+│   │
 │   ├── components/
 │   │   ├── layout/
 │   │   │   ├── Navbar.vue         # Navigációs sáv
 │   │   │   └── FormLayout.vue     # Form oldalak közös elrendezése
 │   │   │
 │   │   ├── project/
-│   │   │   ├── ProjectList.vue    # Projektek táblázatos listája
+│   │   │   ├── ProjectList.vue    # Lista wrapper (ProjectTable-t renderel)
 │   │   │   └── ProjectForm.vue    # Projekt adatbeviteli form
 │   │   │
 │   │   └── common/
 │   │       ├── Filter.vue         # Keresőmező (v-model)
 │   │       ├── Toast.vue          # Értesítés megjelenítő
 │   │       ├── ConfirmModal.vue   # Megerősítő párbeszédablak
+│   │       ├── ProjectTable.vue   # Projektek táblázata (újrafelhasználható)
 │   │       └── inputs/
 │   │           ├── TextInput.vue
 │   │           ├── NumberInput.vue
@@ -102,8 +111,9 @@ ddc-vue/
 │   │           └── Button.vue
 │   │
 │   └── utils/
-│       ├── formatCurrency.js      # Pénznem formázás
+│       ├── formatCurrency.js      # Pénznem formázás (hu-HU)
 │       ├── formatDate.js          # Dátum formázás
+│       ├── isValidBudget.js       # Budget validáció (0–100 000 000, egész szám)
 │       └── nextProjectId.js       # Következő ID generálás
 │
 ├── Dockerfile                     # Többlépéses build (deps / dev / build / prod)
@@ -145,3 +155,17 @@ A `useProjects` composable singleton-szerűen működik: a `load/save` hívások
 |---|---|
 | `modal` | `open(title, message)` → Promise, `close(ok)` feloldja |
 | `toast` | Rövid időre megjelenő értesítések |
+
+---
+
+## Tesztek
+
+```bash
+npm test           # egyszeri futtatás
+npm run test:watch # watch mód (fejlesztés közben)
+```
+
+| Tesztfájl | Mit fed le |
+|---|---|
+| `useValidation.test.js` | Form validáció: kötelező mezők, budget szabályok, hibaüzenetek |
+| `useProjects.test.js` | CRUD műveletek: add, update, remove, getProject, storage hívások |

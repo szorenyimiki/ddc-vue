@@ -19,7 +19,7 @@
       <TextInput id="name" label="Projekt neve" v-model="form.name" />
     </div>
     <div class="mb-3">
-      <NumberInput id="budget" label="Költségvetés" v-model="form.budget" />
+      <NumberInput id="budget" label="Költségvetés" v-model="form.budget" max="100000000" />
     </div>
     <div class="mb-3">
       <DateInput id="start" label="Kezdési dátum" v-model="form.startDate" />

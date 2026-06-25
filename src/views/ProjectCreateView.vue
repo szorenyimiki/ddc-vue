@@ -6,17 +6,13 @@
   import { ref } from 'vue'
   import router from '@/router'
   import { useToastStore } from '@/stores/toast'
+  import { createProject } from '@/models/project'
 
   const toast = useToastStore()
   const { addProject } = useProjects()
   const { errors, validateProject } = useValidation()
 
-  const form = ref({
-    name: '',
-    description: '',
-    startDate: '',
-    budget: 0,
-  })
+  const form = ref(createProject())
 
   function handleSubmit() {
     if (!validateProject(form.value)) {
@@ -33,7 +29,7 @@
 </script>
 
 <template>
-  <FormLayout title="Projekt hozzáadása" back-to="/projects">
+  <FormLayout title="Új Projekt Hozzáadása" back-to="/projects">
     <ProjectForm v-model="form" @submit="handleSubmit" />
   </FormLayout>
 </template>

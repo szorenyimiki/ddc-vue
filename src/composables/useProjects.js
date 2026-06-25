@@ -8,7 +8,7 @@ export function useProjects() {
   const projects = ref(load())
 
   function addProject(project) {
-    project.id = nextProjectId(projects.value) // TODO
+    project.id = nextProjectId(projects.value)
     projects.value.push(project)
     
     save(projects.value)

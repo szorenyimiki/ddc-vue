@@ -21,10 +21,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <router-link class="nav-link" to="/projects">Projektek</router-link>
+            <router-link class="nav-link" to="/projects">Projektek Listája</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/projects/new">Új projekt</router-link>
+            <router-link class="nav-link" to="/projects/new">Új Projekt Hozzáadása</router-link>
           </li>
         </ul>
       </div>

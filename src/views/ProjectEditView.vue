@@ -4,9 +4,10 @@
   import { useProjects } from '@/composables/useProjects'
   import { useRoute } from 'vue-router'
   import { useValidation } from '@/composables/useValidation'
-  import { ref, watch } from 'vue'
+  import { ref } from 'vue'
   import router from '@/router'
   import { useToastStore } from '@/stores/toast'
+  import { createProject } from '@/models/project'
 
   const route = useRoute()
   const { getProject, updateProject } = useProjects()
@@ -14,20 +15,7 @@
   const toast = useToastStore()
   const project = getProject(route.params.id)
 
-  const form = ref({
-    name: '',
-    description: '',
-    startDate: '',
-    budget: 0,
-  })
-
-  watch(
-    project,
-    (p) => {
-      if (p) form.value = { ...p }
-    },
-    { immediate: true }
-  )
+  const form = ref(createProject(project.value))
 
   function handleSubmit() {
     if (!validateProject(form.value)) {
@@ -45,7 +33,7 @@
 
 <template>
   <div v-if="form.name">
-    <FormLayout title="Projekt módosítása" back-to="/projects">
+    <FormLayout title="Projekt Módosítása" back-to="/projects">
       <ProjectForm v-model="form" @submit="handleSubmit" />
     </FormLayout>
   </div>
