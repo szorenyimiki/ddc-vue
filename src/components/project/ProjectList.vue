@@ -1,5 +1,5 @@
 <script setup>
-  import ProjectTable from '@/components/common/ProjectTable.vue'
+  import ProjectTable from '@/components/project/ProjectTable.vue'
 
   defineEmits(['removeProject'])
 
